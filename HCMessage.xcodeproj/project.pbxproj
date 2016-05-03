@@ -1,0 +1,477 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DA7A15A1CD8F22F00701224 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1591CD8F22F00701224 /* main.m */; };
+		1DA7A1631CD8F22F00701224 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA7A1611CD8F22F00701224 /* Main.storyboard */; };
+		1DA7A1651CD8F22F00701224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA7A1641CD8F22F00701224 /* Assets.xcassets */; };
+		1DA7A1681CD8F22F00701224 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA7A1661CD8F22F00701224 /* LaunchScreen.storyboard */; };
+		1DA7A1731CD8F22F00701224 /* HCMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1721CD8F22F00701224 /* HCMessageTests.m */; };
+		1DA7A1841CD8F3C800701224 /* HCChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1831CD8F3C800701224 /* HCChatMessage.m */; };
+		1DA7A1871CD8F3D700701224 /* HCContentsInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1861CD8F3D700701224 /* HCContentsInfoManager.m */; };
+		1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1891CD8F3ED00701224 /* HCMessageViewController.m */; };
+		1DA7A18D1CD8F3ED00701224 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A18B1CD8F3ED00701224 /* ViewController.m */; };
+		1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1DA7A16F1CD8F22F00701224 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DA7A14D1CD8F22E00701224 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DA7A1541CD8F22F00701224;
+			remoteInfo = HCMessage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1DA7A1551CD8F22F00701224 /* HCMessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HCMessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DA7A1591CD8F22F00701224 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1DA7A1621CD8F22F00701224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1DA7A1641CD8F22F00701224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1DA7A1671CD8F22F00701224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1DA7A1691CD8F22F00701224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DA7A16E1CD8F22F00701224 /* HCMessageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HCMessageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DA7A1721CD8F22F00701224 /* HCMessageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HCMessageTests.m; sourceTree = "<group>"; };
+		1DA7A1741CD8F22F00701224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DA7A1821CD8F3C800701224 /* HCChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCChatMessage.h; path = Class/HCChatMessage.h; sourceTree = "<group>"; };
+		1DA7A1831CD8F3C800701224 /* HCChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCChatMessage.m; path = Class/HCChatMessage.m; sourceTree = "<group>"; };
+		1DA7A1851CD8F3D700701224 /* HCContentsInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCContentsInfoManager.h; path = Class/HCContentsInfoManager.h; sourceTree = "<group>"; };
+		1DA7A1861CD8F3D700701224 /* HCContentsInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCContentsInfoManager.m; path = Class/HCContentsInfoManager.m; sourceTree = "<group>"; };
+		1DA7A1881CD8F3ED00701224 /* HCMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCMessageViewController.h; path = Class/HCMessageViewController.h; sourceTree = "<group>"; };
+		1DA7A1891CD8F3ED00701224 /* HCMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCMessageViewController.m; path = Class/HCMessageViewController.m; sourceTree = "<group>"; };
+		1DA7A18A1CD8F3ED00701224 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Class/ViewController.h; sourceTree = "<group>"; };
+		1DA7A18B1CD8F3ED00701224 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Class/ViewController.m; sourceTree = "<group>"; };
+		1DA7A18E1CD8F3FA00701224 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Class/AppDelegate.h; sourceTree = "<group>"; };
+		1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Class/AppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DA7A1521CD8F22F00701224 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DA7A16B1CD8F22F00701224 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1DA7A14C1CD8F22E00701224 = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1571CD8F22F00701224 /* HCMessage */,
+				1DA7A1711CD8F22F00701224 /* HCMessageTests */,
+				1DA7A1561CD8F22F00701224 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1DA7A1561CD8F22F00701224 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1551CD8F22F00701224 /* HCMessage.app */,
+				1DA7A16E1CD8F22F00701224 /* HCMessageTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1DA7A1571CD8F22F00701224 /* HCMessage */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A17D1CD8F2CB00701224 /* AppDelegate */,
+				1DA7A17F1CD8F2EA00701224 /* Manager */,
+				1DA7A1801CD8F2F100701224 /* Model */,
+				1DA7A1811CD8F2FE00701224 /* Storyboard */,
+				1DA7A17E1CD8F2DC00701224 /* ViewController */,
+				1DA7A1641CD8F22F00701224 /* Assets.xcassets */,
+				1DA7A1691CD8F22F00701224 /* Info.plist */,
+				1DA7A1581CD8F22F00701224 /* Supporting Files */,
+			);
+			path = HCMessage;
+			sourceTree = "<group>";
+		};
+		1DA7A1581CD8F22F00701224 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1591CD8F22F00701224 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1DA7A1711CD8F22F00701224 /* HCMessageTests */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1721CD8F22F00701224 /* HCMessageTests.m */,
+				1DA7A1741CD8F22F00701224 /* Info.plist */,
+			);
+			path = HCMessageTests;
+			sourceTree = "<group>";
+		};
+		1DA7A17D1CD8F2CB00701224 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A18E1CD8F3FA00701224 /* AppDelegate.h */,
+				1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		1DA7A17E1CD8F2DC00701224 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1881CD8F3ED00701224 /* HCMessageViewController.h */,
+				1DA7A1891CD8F3ED00701224 /* HCMessageViewController.m */,
+				1DA7A18A1CD8F3ED00701224 /* ViewController.h */,
+				1DA7A18B1CD8F3ED00701224 /* ViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		1DA7A17F1CD8F2EA00701224 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1851CD8F3D700701224 /* HCContentsInfoManager.h */,
+				1DA7A1861CD8F3D700701224 /* HCContentsInfoManager.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		1DA7A1801CD8F2F100701224 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1821CD8F3C800701224 /* HCChatMessage.h */,
+				1DA7A1831CD8F3C800701224 /* HCChatMessage.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1DA7A1811CD8F2FE00701224 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1611CD8F22F00701224 /* Main.storyboard */,
+				1DA7A1661CD8F22F00701224 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1DA7A1541CD8F22F00701224 /* HCMessage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DA7A1771CD8F22F00701224 /* Build configuration list for PBXNativeTarget "HCMessage" */;
+			buildPhases = (
+				1DA7A1511CD8F22F00701224 /* Sources */,
+				1DA7A1521CD8F22F00701224 /* Frameworks */,
+				1DA7A1531CD8F22F00701224 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HCMessage;
+			productName = HCMessage;
+			productReference = 1DA7A1551CD8F22F00701224 /* HCMessage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1DA7A16D1CD8F22F00701224 /* HCMessageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DA7A17A1CD8F22F00701224 /* Build configuration list for PBXNativeTarget "HCMessageTests" */;
+			buildPhases = (
+				1DA7A16A1CD8F22F00701224 /* Sources */,
+				1DA7A16B1CD8F22F00701224 /* Frameworks */,
+				1DA7A16C1CD8F22F00701224 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1DA7A1701CD8F22F00701224 /* PBXTargetDependency */,
+			);
+			name = HCMessageTests;
+			productName = HCMessageTests;
+			productReference = 1DA7A16E1CD8F22F00701224 /* HCMessageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1DA7A14D1CD8F22E00701224 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Jinhong Kim";
+				TargetAttributes = {
+					1DA7A1541CD8F22F00701224 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					1DA7A16D1CD8F22F00701224 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 1DA7A1541CD8F22F00701224;
+					};
+				};
+			};
+			buildConfigurationList = 1DA7A1501CD8F22E00701224 /* Build configuration list for PBXProject "HCMessage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1DA7A14C1CD8F22E00701224;
+			productRefGroup = 1DA7A1561CD8F22F00701224 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1DA7A1541CD8F22F00701224 /* HCMessage */,
+				1DA7A16D1CD8F22F00701224 /* HCMessageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1DA7A1531CD8F22F00701224 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DA7A1681CD8F22F00701224 /* LaunchScreen.storyboard in Resources */,
+				1DA7A1651CD8F22F00701224 /* Assets.xcassets in Resources */,
+				1DA7A1631CD8F22F00701224 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DA7A16C1CD8F22F00701224 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DA7A1511CD8F22F00701224 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DA7A1841CD8F3C800701224 /* HCChatMessage.m in Sources */,
+				1DA7A15A1CD8F22F00701224 /* main.m in Sources */,
+				1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */,
+				1DA7A1871CD8F3D700701224 /* HCContentsInfoManager.m in Sources */,
+				1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */,
+				1DA7A18D1CD8F3ED00701224 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DA7A16A1CD8F22F00701224 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DA7A1731CD8F22F00701224 /* HCMessageTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1DA7A1701CD8F22F00701224 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DA7A1541CD8F22F00701224 /* HCMessage */;
+			targetProxy = 1DA7A16F1CD8F22F00701224 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1DA7A1611CD8F22F00701224 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DA7A1621CD8F22F00701224 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1DA7A1661CD8F22F00701224 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DA7A1671CD8F22F00701224 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DA7A1751CD8F22F00701224 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1DA7A1761CD8F22F00701224 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1DA7A1781CD8F22F00701224 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HCMessage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hc.HCMessage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1DA7A1791CD8F22F00701224 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HCMessage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hc.HCMessage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1DA7A17B1CD8F22F00701224 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = HCMessageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hipchat.HCMessageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HCMessage.app/HCMessage";
+			};
+			name = Debug;
+		};
+		1DA7A17C1CD8F22F00701224 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = HCMessageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hipchat.HCMessageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HCMessage.app/HCMessage";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DA7A1501CD8F22E00701224 /* Build configuration list for PBXProject "HCMessage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DA7A1751CD8F22F00701224 /* Debug */,
+				1DA7A1761CD8F22F00701224 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DA7A1771CD8F22F00701224 /* Build configuration list for PBXNativeTarget "HCMessage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DA7A1781CD8F22F00701224 /* Debug */,
+				1DA7A1791CD8F22F00701224 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DA7A17A1CD8F22F00701224 /* Build configuration list for PBXNativeTarget "HCMessageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DA7A17B1CD8F22F00701224 /* Debug */,
+				1DA7A17C1CD8F22F00701224 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1DA7A14D1CD8F22E00701224 /* Project object */;
+}
