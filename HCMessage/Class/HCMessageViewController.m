@@ -12,6 +12,11 @@
 #import "HCContentsInfoManager.h"
 
 
+static NSString * const HCContentInfoKeyMentions  = @"mentions";
+static NSString * const HCContentInfoKeyEmoticons = @"emoticons";
+static NSString * const HCContentInfoKeyLinks     = @"links";
+
+
 @interface HCMessageViewController ()
 {
     HCContentsInfoManager *_contentsInfoManager;
@@ -102,8 +107,34 @@
     
     HCChatMessage *msg = [[HCChatMessage alloc] initWithText:text];
     
-    [_contentsInfoManager parseMessage:msg completionHandler:^( HCChatMessage *message, NSError *error ) {
-        NSLog(@"\ntext:%@\ncontentInfo:%@", [message text], [message contentInfo]);
+    [_contentsInfoManager parseMessage:msg completionHandler:^{
+        NSMutableDictionary *contentInfo = [NSMutableDictionary dictionaryWithCapacity:3];
+        
+        if ( [[msg mentions] count] > 0 ) {
+            [contentInfo setObject:[msg mentions] forKey:HCContentInfoKeyMentions];
+        }
+        
+        if ( [[msg emoticons] count] > 0 ) {
+            [contentInfo setObject:[msg emoticons] forKey:HCContentInfoKeyEmoticons];
+        }
+        
+        if ( [[msg links] count] > 0 ) {
+            [contentInfo setObject:[msg links] forKey:HCContentInfoKeyLinks];
+        }
+
+        
+        if ( [contentInfo count] > 0 ) {
+            NSError *error = nil;
+            NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:contentInfo options:NSJSONWritingPrettyPrinted error:&error];
+            
+            if ( jsonData ) {
+                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                if ( jsonString ) {
+                    NSLog(@"json : %@", jsonString);
+                }
+            }
+        }
     }];
     
     

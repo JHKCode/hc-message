@@ -9,13 +9,18 @@
 #import "HCContentsInfoManager.h"
 
 #import "HCChatMessage.h"
+#import "HCLinkFetchManager.h"
 
 
-static NSString * const HCContentInfoKeyMentions  = @"mentions";
-static NSString * const HCContentInfoKeyEmoticons = @"emoticons";
-static NSString * const HCContentInfoKeyLinks     = @"links";
 static NSString * const HCContentInfoLinkKeyURL   = @"url";
 static NSString * const HCContentInfoLinkKeyTitle = @"title";
+
+
+@interface HCContentsInfoManager ()
+{
+    HCLinkFetchManager *_linkFetchManager;
+}
+@end
 
 
 @implementation HCContentsInfoManager
@@ -26,14 +31,14 @@ static NSString * const HCContentInfoLinkKeyTitle = @"title";
     self = [super init];
     
     if ( self ) {
-        
+        _linkFetchManager = [[HCLinkFetchManager alloc] init];
     }
     
     return self;
 }
 
 
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(HCChatMessage *message, NSError *error))handler
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler
 {
     // check handler
     if ( handler == nil ) {
@@ -43,50 +48,77 @@ static NSString * const HCContentInfoLinkKeyTitle = @"title";
     
     // check text
     if ( [[message text] length] == 0 ) {
-        handler(message, nil);
+        handler();
         return;
     }
     
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSArray *mentions  = [self findMentions:[message text]];
-        NSArray *emoticons = [self findEmoticons:[message text]];
-        NSArray *links     = [self findLinks:[message text]];
+    __weak HCContentsInfoManager *weakSelf = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ( weakSelf == nil ) {
+            return;
+        }
         
         
-        NSMutableDictionary *contentInfo = [NSMutableDictionary dictionaryWithCapacity:3];
+        NSArray *mentions  = [weakSelf findMentions:[message text]];
+        NSArray *emoticons = [weakSelf findEmoticons:[message text]];
+        NSArray *links     = [weakSelf findLinks:[message text]];
         
         if ( [mentions count] > 0 ) {
-            [contentInfo setObject:mentions forKey:HCContentInfoKeyMentions];
+            [message setMentions:mentions];
         }
         
         if ( [emoticons count] > 0 ) {
-            [contentInfo setObject:emoticons forKey:HCContentInfoKeyEmoticons];
+            [message setEmoticons:emoticons];
         }
         
         if ( [links count] > 0 ) {
-            [contentInfo setObject:links forKey:HCContentInfoKeyLinks];
+            [weakSelf fetchLinks:links message:message completionHandler:handler];
         }
-        
-        
-        if ( [contentInfo count] > 0 ) {
-            NSError *error = nil;
-            NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:contentInfo options:NSJSONWritingPrettyPrinted error:&error];
-            
-            if ( jsonData ) {
-                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                
-                if ( jsonString ) {
-                    [message setContentInfo:jsonString];
-                }
+        else {
+            if ( handler ) {
+                handler();
             }
         }
-        
-        
-        if ( handler ) {
-            handler( message, nil );
-        }
     });
+}
+
+
+#pragma mark - Fetch Links
+
+
+- (void)fetchLinks:(NSArray *)links message:(HCChatMessage *)message completionHandler:(void (^)(void))handler
+{
+    NSMutableArray *linkInfos = [NSMutableArray arrayWithCapacity:[links count]];
+    
+    __block NSUInteger linkFetchCount = 0;
+    
+    for ( NSString *link in links ) {
+        NSMutableDictionary *linkInfo = [NSMutableDictionary dictionaryWithObject:link forKey:HCContentInfoLinkKeyURL];
+        
+        [linkInfos addObject:linkInfo];
+        
+        [_linkFetchManager fetchLink:link completionHandler:^(NSString *link, NSString *title) {
+            linkFetchCount++;
+            
+            if ( [title length] > 0 ) {
+                for ( NSMutableDictionary *linkInfo in linkInfos ) {
+                    if ( [link isEqualToString:[linkInfo objectForKey:HCContentInfoLinkKeyURL]] ) {
+                        [linkInfo setObject:title forKey:HCContentInfoLinkKeyTitle];
+                        break;
+                    }
+                }
+            }
+            
+            if ( linkFetchCount == [links count] ) {
+                [message setLinks:linkInfos];
+                
+                if ( handler ) {
+                    handler();
+                }
+            }
+        }];
+    }
 }
 
 

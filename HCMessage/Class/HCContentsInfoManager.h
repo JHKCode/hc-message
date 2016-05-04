@@ -15,7 +15,7 @@
 @interface HCContentsInfoManager : NSObject
 
 
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(HCChatMessage *message, NSError *error))handler;
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler;
 
 
 @end

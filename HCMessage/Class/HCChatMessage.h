@@ -13,9 +13,10 @@
 
 
 @property (strong, nonatomic) NSString *text;
-@property (strong, nonatomic) NSString *contentInfo;
 @property (strong, nonatomic) NSString *messageID;
-
+@property (strong, nonatomic) NSArray  *mentions;
+@property (strong, nonatomic) NSArray  *emoticons;
+@property (strong, nonatomic) NSArray  *links;
 
 - (instancetype)initWithText:(NSString *)text;
 

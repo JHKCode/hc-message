@@ -17,6 +17,8 @@
 		1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1891CD8F3ED00701224 /* HCMessageViewController.m */; };
 		1DA7A18D1CD8F3ED00701224 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A18B1CD8F3ED00701224 /* ViewController.m */; };
 		1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */; };
+		1DA7A1931CD9915200701224 /* HCLinkFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */; };
+		1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		1DA7A18B1CD8F3ED00701224 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Class/ViewController.m; sourceTree = "<group>"; };
 		1DA7A18E1CD8F3FA00701224 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Class/AppDelegate.h; sourceTree = "<group>"; };
 		1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Class/AppDelegate.m; sourceTree = "<group>"; };
+		1DA7A1911CD9915200701224 /* HCLinkFetchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCLinkFetchManager.h; path = Class/HCLinkFetchManager.h; sourceTree = "<group>"; };
+		1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCLinkFetchManager.m; path = Class/HCLinkFetchManager.m; sourceTree = "<group>"; };
+		1DA7A19C1CD9FCED00701224 /* HCLinkFetchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCLinkFetchInfo.h; path = Class/HCLinkFetchInfo.h; sourceTree = "<group>"; };
+		1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCLinkFetchInfo.m; path = Class/HCLinkFetchInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,8 @@
 			children = (
 				1DA7A1851CD8F3D700701224 /* HCContentsInfoManager.h */,
 				1DA7A1861CD8F3D700701224 /* HCContentsInfoManager.m */,
+				1DA7A1911CD9915200701224 /* HCLinkFetchManager.h */,
+				1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -153,6 +161,8 @@
 			children = (
 				1DA7A1821CD8F3C800701224 /* HCChatMessage.h */,
 				1DA7A1831CD8F3C800701224 /* HCChatMessage.m */,
+				1DA7A19C1CD9FCED00701224 /* HCLinkFetchInfo.h */,
+				1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -271,6 +281,8 @@
 				1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */,
 				1DA7A1871CD8F3D700701224 /* HCContentsInfoManager.m in Sources */,
 				1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */,
+				1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */,
+				1DA7A1931CD9915200701224 /* HCLinkFetchManager.m in Sources */,
 				1DA7A18D1CD8F3ED00701224 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
