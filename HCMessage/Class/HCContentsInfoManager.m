@@ -8,12 +8,13 @@
 
 #import "HCContentsInfoManager.h"
 
+#import "HCEmoticon.h"
 #import "HCChatMessage.h"
 #import "HCLinkFetchManager.h"
 
 
-static NSString * const HCContentInfoLinkKeyURL   = @"url";
-static NSString * const HCContentInfoLinkKeyTitle = @"title";
+NSString * const HCContentInfoLinkKeyURL   = @"url";
+NSString * const HCContentInfoLinkKeyTitle = @"title";
 
 
 @interface HCContentsInfoManager ()
@@ -300,7 +301,7 @@ static NSString * const HCContentInfoLinkKeyTitle = @"title";
         // find string
         NSString *matchString = [text substringWithRange:matchRange];
         
-        if ( [matchString length] > 0 ) {
+        if ( [matchString length] > 0 && [HCEmoticon isCustomEmoticon:matchString] ) {
             [emoticons addObject:matchString];
         }
     }

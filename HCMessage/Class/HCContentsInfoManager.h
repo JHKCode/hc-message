@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+extern NSString * const HCContentInfoLinkKeyURL;
+extern NSString * const HCContentInfoLinkKeyTitle;
+
+
 @class HCChatMessage;
 
 
