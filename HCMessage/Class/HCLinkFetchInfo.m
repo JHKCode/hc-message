@@ -22,8 +22,8 @@
         // url
         NSString *URLString = link;
         
-        if ( [link hasPrefix:@"http://"] == NO || [link hasPrefix:@"https://"] ) {
-            URLString = [NSString stringWithFormat:@"http://%@", link];
+        if ( [URLString hasPrefix:@"http://"] == NO && [URLString hasPrefix:@"https://"] == NO ) {
+            URLString = [NSString stringWithFormat:@"http://%@", URLString];
         }
         
         [self setURL:[NSURL URLWithString:URLString]];
@@ -31,6 +31,10 @@
         
         // data
         [self setData:[NSMutableData data]];
+        
+        
+        // string encoding
+        [self setEncoding:NSASCIIStringEncoding];
         
         
         // retry count

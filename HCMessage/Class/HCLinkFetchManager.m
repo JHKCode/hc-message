@@ -176,7 +176,7 @@ NSString *taskID( NSURLSessionTask *task )
         [[linkInfo data] appendData:data];
         
         // creat html string
-        NSString *HTMLString = [[NSString alloc] initWithData:[linkInfo data] encoding:NSUTF8StringEncoding];
+        NSString *HTMLString = [[NSString alloc] initWithData:[linkInfo data] encoding:[linkInfo encoding]];
         
         if ( [HTMLString length] == 0 ) {
             return;
@@ -192,6 +192,36 @@ NSString *taskID( NSURLSessionTask *task )
             [self finishTask:task];
             [self fetchNext];
         }
+    }
+}
+
+
+- (void)URLSession:(NSURLSession *)session
+          dataTask:(NSURLSessionDataTask *)task
+didReceiveResponse:(NSURLResponse *)response
+ completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
+{
+    // find matching NSStringEncoding with content-type's character set in http response header
+    NSString *encodingName = [response textEncodingName];
+    
+    if ( [encodingName length] > 0 ) {
+        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding( (__bridge CFStringRef)encodingName );
+
+        if ( encoding != kCFStringEncodingInvalidId ) {
+            NSStringEncoding stringEncoding = CFStringConvertEncodingToNSStringEncoding( encoding );
+
+            if ( stringEncoding != kCFStringEncodingInvalidId ) {
+                HCLinkFetchInfo *linkInfo = [_fetchingQueue objectForKey:taskID(task)];
+                
+                [linkInfo setEncoding:stringEncoding];
+            }
+        }
+    }
+
+    
+    // call completion handler to continue
+    if ( completionHandler ) {
+        completionHandler( NSURLSessionResponseAllow );
     }
 }
 
@@ -217,7 +247,12 @@ NSString *taskID( NSURLSessionTask *task )
     
     // find title
     NSTextCheckingResult *result = [regex firstMatchInString:HTMLString options:0 range:NSMakeRange(0, [HTMLString length])];
-    NSRange  range  = [result range];
+    
+    if ( [result numberOfRanges] < 2 ) {
+        return;
+    }
+    
+    NSRange  range  = [result rangeAtIndex:1];
     NSString *title = nil;
     
     if ( range.location != NSNotFound && range.length > 0 ) {
