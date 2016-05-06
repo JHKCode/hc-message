@@ -19,6 +19,7 @@
 		1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A18F1CD8F3FA00701224 /* AppDelegate.m */; };
 		1DA7A1931CD9915200701224 /* HCLinkFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */; };
 		1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */; };
+		1DA7A1A11CDBB5A700701224 /* HCEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1A01CDBB5A700701224 /* HCEmoticon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCLinkFetchManager.m; path = Class/HCLinkFetchManager.m; sourceTree = "<group>"; };
 		1DA7A19C1CD9FCED00701224 /* HCLinkFetchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCLinkFetchInfo.h; path = Class/HCLinkFetchInfo.h; sourceTree = "<group>"; };
 		1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCLinkFetchInfo.m; path = Class/HCLinkFetchInfo.m; sourceTree = "<group>"; };
+		1DA7A19F1CDBB5A700701224 /* HCEmoticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCEmoticon.h; path = Class/HCEmoticon.h; sourceTree = "<group>"; };
+		1DA7A1A01CDBB5A700701224 /* HCEmoticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCEmoticon.m; path = Class/HCEmoticon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				1DA7A1831CD8F3C800701224 /* HCChatMessage.m */,
 				1DA7A19C1CD9FCED00701224 /* HCLinkFetchInfo.h */,
 				1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */,
+				1DA7A19F1CDBB5A700701224 /* HCEmoticon.h */,
+				1DA7A1A01CDBB5A700701224 /* HCEmoticon.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */,
 				1DA7A1871CD8F3D700701224 /* HCContentsInfoManager.m in Sources */,
 				1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */,
+				1DA7A1A11CDBB5A700701224 /* HCEmoticon.m in Sources */,
 				1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */,
 				1DA7A1931CD9915200701224 /* HCLinkFetchManager.m in Sources */,
 				1DA7A18D1CD8F3ED00701224 /* ViewController.m in Sources */,
