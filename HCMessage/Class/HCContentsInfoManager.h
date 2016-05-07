@@ -14,6 +14,14 @@
 
 @interface HCContentsInfoManager : NSObject
 
+/**
+ @method parseMessage:completionHandler:
+ 
+ @abstract Parse message and fetch title of links if message contains link
+ @param message the message to parse
+ @param completionHandler the handler is called when parsing and fetching title complete
+ @discussion The result of parsing is saved in message instance
+ */
 - (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler;
 
 @end
