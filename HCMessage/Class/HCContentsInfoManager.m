@@ -13,10 +13,6 @@
 #import "HCLinkFetchManager.h"
 
 
-NSString * const HCContentInfoLinkKeyURL   = @"url";
-NSString * const HCContentInfoLinkKeyTitle = @"title";
-
-
 @interface HCContentsInfoManager ()
 {
     HCLinkFetchManager *_linkFetchManager;
@@ -39,7 +35,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
 }
 
 
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler
 {
     // check handler
     if ( handler == nil ) {
@@ -49,7 +45,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
     
     // check text
     if ( [[message text] length] == 0 ) {
-        handler( nil );
+        handler();
         return;
     }
     
@@ -78,7 +74,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
         }
         else {
             if ( handler ) {
-                handler( nil );
+                handler();
             }
         }
     });
@@ -88,11 +84,11 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
 #pragma mark - Fetch Links
 
 
-- (void)fetchLinks:(NSArray *)links message:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler
+- (void)fetchLinks:(NSArray *)links message:(HCChatMessage *)message completionHandler:(void (^)(void))handler
 {
-    NSMutableArray *linkInfos = [NSMutableArray arrayWithCapacity:[links count]];
-    
-    __block NSUInteger linkFetchCount = 0;
+    NSMutableArray      *linkInfos      = [NSMutableArray arrayWithCapacity:[links count]];
+    NSMutableDictionary *linkErrors     = [NSMutableDictionary dictionaryWithCapacity:[links count]];
+    __block NSUInteger   linkFetchCount = 0;
     
     for ( NSString *link in links ) {
         NSMutableDictionary *linkInfo = [NSMutableDictionary dictionaryWithObject:link forKey:HCContentInfoLinkKeyURL];
@@ -102,20 +98,33 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
         [_linkFetchManager fetchLink:link completionHandler:^(NSString *link, NSString *title, NSError *error) {
             linkFetchCount++;
             
-            if ( [title length] > 0 ) {
-                for ( NSMutableDictionary *linkInfo in linkInfos ) {
-                    if ( [link isEqualToString:[linkInfo objectForKey:HCContentInfoLinkKeyURL]] ) {
+            for ( NSMutableDictionary *linkInfo in linkInfos ) {
+                if ( [link isEqualToString:[linkInfo objectForKey:HCContentInfoLinkKeyURL]] ) {
+                    NSString *prevTitle = [linkInfo objectForKey:HCContentInfoLinkKeyTitle];
+                    
+                    if ( [prevTitle length] > 0 ) {
+                        continue;
+                    }
+                    
+                    if ( [title length] > 0 ) {
                         [linkInfo setObject:title forKey:HCContentInfoLinkKeyTitle];
-                        break;
+                    }
+                    else if ( error ) {
+                        [linkErrors setObject:error forKey:link];
                     }
                 }
             }
+
             
             if ( linkFetchCount == [links count] ) {
                 [message setLinks:linkInfos];
                 
+                if ( [linkErrors count] > 0 ) {
+                    [message setLinkFetchErrors:[NSDictionary dictionaryWithDictionary:linkErrors]];
+                }
+                
                 if ( handler ) {
-                    handler( nil );
+                    handler();
                 }
             }
         }];

@@ -12,6 +12,7 @@
 
 
 #define kHCLinkFetchingMaxCount     4
+#define kHCLinkFetchRetryCount      3
 
 
 NSString *taskID( NSURLSessionTask *task )
@@ -22,12 +23,18 @@ NSString *taskID( NSURLSessionTask *task )
 
 @interface HCLinkFetchManager ()
 {
+    // queue
     NSMutableDictionary *_fetchingQueue;
     NSMutableArray      *_waitingQueue;
     
+    // operation queue
+    NSOperationQueue *_operationQueue;
+
+    // session
     NSURLSession *_session;
     
-    NSOperationQueue *_operationQueue;
+    // title cache
+    NSMutableDictionary *_titles;
 }
 @end
 
@@ -54,6 +61,9 @@ NSString *taskID( NSURLSessionTask *task )
         _session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                  delegate:self
                                             delegateQueue:_operationQueue];
+        
+        // create cache
+        _titles = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -77,7 +87,22 @@ NSString *taskID( NSURLSessionTask *task )
 
 - (void)fetchLink:(NSString *)link completionHandler:(HCLinkFetchResultHandler)handler
 {
+    if ( handler == nil ) {
+        return;
+    }
+    
+    
     [_operationQueue addOperationWithBlock:^{
+        // check cache
+        NSString *title = [_titles objectForKey:link];
+        
+        if ( [title length] > 0 ) {
+            handler(link, title, nil);
+            
+            return;
+        }
+        
+        
         HCLinkFetchInfo *linkInfo = [[HCLinkFetchInfo alloc] initWithLink:link completionHandler:handler];
         
         if ( [_fetchingQueue count] < kHCLinkFetchingMaxCount ) {
@@ -102,6 +127,10 @@ NSString *taskID( NSURLSessionTask *task )
     
     // start fetch
     [task resume];
+    
+    
+    // increment retry count
+    [linkInfo setRetryCount:([linkInfo retryCount] + 1)];
 }
 
 
@@ -154,11 +183,33 @@ NSString *taskID( NSURLSessionTask *task )
     }
     
     
-    if ( [linkInfo isFinished] == NO ) {
-        [linkInfo setFinished:YES];
-
-        [self finishTask:task];
-        [self fetchNext];
+    // check retry count
+    if ( error ) {
+        NSLog(@"%@ error, %@", [linkInfo link], error);
+        
+        if ( [linkInfo retryCount] >= kHCLinkFetchRetryCount ) {
+            // set error
+            [linkInfo setError:error];
+            
+            // finish task
+            if ( [linkInfo isFinished] == NO ) {
+                [linkInfo setFinished:YES];
+                
+                [self finishTask:task];
+                [self fetchNext];
+            }
+        }
+        else {
+            // reset link info
+            [linkInfo setData:[NSMutableData data]];
+            [linkInfo setEncoding:NSASCIIStringEncoding];
+            
+            // remove from fetching queue
+            [_fetchingQueue removeObjectForKey:taskID(task)];
+            
+            // retry
+            [self startFetch:linkInfo];
+        }
     }
 }
 
@@ -258,10 +309,12 @@ didReceiveResponse:(NSURLResponse *)response
     if ( range.location != NSNotFound && range.length > 0 ) {
         title = [HTMLString substringWithRange:range];
         
+        // set title
         [linkInfo setTitle:title];
         [linkInfo setFinished:YES];
         
-        NSLog(@"title found, %@ - %@", [linkInfo link], title);
+        // set cache
+        [_titles setObject:title forKey:[linkInfo link]];
         
         return;
     }

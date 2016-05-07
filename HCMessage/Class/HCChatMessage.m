@@ -13,6 +13,10 @@ NSString * const HCContentInfoKeyMentions  = @"mentions";
 NSString * const HCContentInfoKeyEmoticons = @"emoticons";
 NSString * const HCContentInfoKeyLinks     = @"links";
 
+NSString * const HCContentInfoLinkKeyURL   = @"url";
+NSString * const HCContentInfoLinkKeyTitle = @"title";
+NSString * const HCContentInfoLinkKeyError = @"error";
+
 
 @implementation HCChatMessage
 
@@ -85,6 +89,16 @@ NSString * const HCContentInfoKeyLinks     = @"links";
     
     
     return JSONString;
+}
+
+
+- (BOOL)hasLinkFetchError
+{
+    if ( [[self linkFetchErrors] count] > 0 ) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 

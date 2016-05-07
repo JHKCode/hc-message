@@ -9,17 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-extern NSString * const HCContentInfoLinkKeyURL;
-extern NSString * const HCContentInfoLinkKeyTitle;
-
-
 @class HCChatMessage;
 
 
 @interface HCContentsInfoManager : NSObject
 
-
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler;
-
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler;
 
 @end

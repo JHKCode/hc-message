@@ -137,15 +137,18 @@
     
     __weak HCMessageViewController *weakSelf = self;
     
-    [_contentsInfoManager parseMessage:msg completionHandler:^(NSError *error) {
+    [_contentsInfoManager parseMessage:msg completionHandler:^{
         if ( weakSelf == nil ) {
             return;
         }
+
+
+        // update message
+        [msg setParsed:YES];
         
-        
+
+        // notify message updated
         dispatch_async(dispatch_get_main_queue(), ^{
-            [msg setParsed:YES];
-            
             [weakSelf notifyMessageDidUpdate:msg];
         });
     }];
@@ -190,7 +193,19 @@
     
     // set background color
     HCChatMessage *message = [_messages objectAtIndex:[indexPath row]];
-    UIColor       *color   = ( [message parsed] ) ? [UIColor whiteColor] : [UIColor lightGrayColor];
+    UIColor       *color   = nil;
+    
+    if ( [message parsed] ) {
+        if ( [message hasLinkFetchError] ) {
+            color = [UIColor redColor];
+        }
+        else {
+            color = [UIColor whiteColor];
+        }
+    }
+    else {
+        color = [UIColor lightGrayColor];
+    }
     
     [[cell contentView] setBackgroundColor:color];
     
