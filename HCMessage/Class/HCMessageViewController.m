@@ -22,7 +22,7 @@
     NSMutableDictionary *_messageAttrStrings;
     
     NSDictionary *_messageAttributes;
-    NSDictionary *_completedMessageAttributes;
+    NSDictionary *_contentsAttributes;
 }
 @end
 
@@ -78,8 +78,6 @@
 {
     _messages = [[NSMutableArray alloc] init];
     _messageAttrStrings = [[NSMutableDictionary alloc] init];
-    
-    _messageAttributes = [HCMessageTableViewCell messageLabelAttribute];
 }
 
 
@@ -112,6 +110,10 @@
     UINib *msgNib = [UINib nibWithNibName:HCMessageCellID bundle:[NSBundle mainBundle]];
     
     [_tableView registerNib:msgNib forCellReuseIdentifier:HCMessageCellID];
+    
+    
+    _messageAttributes  = [HCMessageTableViewCell messageAttribute];
+    _contentsAttributes = [HCMessageTableViewCell contentsAttribute];
 }
 
 
@@ -127,14 +129,20 @@
     }
 
     
+    // add message model
     HCChatMessage *msg = [[HCChatMessage alloc] initWithText:text];
     
-    [_messages addObject:msg];
+    [_messages insertObject:msg atIndex:0];
     
-    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([_messages count] - 1) inSection:0]]
+    
+    // add to ui
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [_tableView insertRowsAtIndexPaths:@[indexPath]
                       withRowAnimation:UITableViewRowAnimationAutomatic];
     
     
+    // parse message
     __weak HCMessageViewController *weakSelf = self;
     
     [_contentsInfoManager parseMessage:msg completionHandler:^{
@@ -293,14 +301,27 @@
 - (NSAttributedString *)attrStringAtIndexPath:(NSIndexPath *)indexPath
 {
     // find or generate attributed string
-    HCChatMessage      *message    = [_messages objectAtIndex:[indexPath row]];
-    NSAttributedString *attrString = [_messageAttrStrings objectForKey:[message messageID]];
+    HCChatMessage *message = [_messages objectAtIndex:[indexPath row]];
+    NSMutableAttributedString *attrString = [_messageAttrStrings objectForKey:[message messageID]];
     
     
     // check cache
     if ( [attrString length] == 0 ) {
-        // create attributed string
-        attrString = [[NSAttributedString alloc] initWithString:[message text] attributes:_messageAttributes];
+        // create message string
+        attrString = [[NSMutableAttributedString alloc] initWithString:[message text] attributes:_messageAttributes];
+
+        
+        // append json contents if parsing completed.
+        if ( [message parsed] ) {
+            NSString *contents = [message JSONContents];
+            
+            if ( [contents length] > 0 ) {
+                NSAttributedString *contentsString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n\n%@", contents]
+                                                                                     attributes:_contentsAttributes];
+                [attrString appendAttributedString:contentsString];
+            }
+        }
+        
         
         // cache attributed string
         [_messageAttrStrings setObject:attrString forKey:[message messageID]];
@@ -316,6 +337,10 @@
     NSString *msgID = [message messageID];
     NSArray  *indexPaths = [_tableView indexPathsForVisibleRows];
     
+    // clear cache
+    [_messageAttrStrings removeObjectForKey:msgID];
+    
+    // find & update cell
     for ( NSIndexPath *indexPath in indexPaths ) {
         HCChatMessage *visibleMessage = [_messages objectAtIndex:[indexPath row]];
         

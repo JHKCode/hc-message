@@ -15,7 +15,25 @@ NSString * const HCMessageCellID = @"HCMessageTableViewCell";
 @implementation HCMessageTableViewCell
 
 
-+ (NSDictionary *)messageLabelAttribute
++ (NSDictionary *)messageAttribute
+{
+    NSDictionary *attributes;
+    
+    NSMutableParagraphStyle *paragrahStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    [paragrahStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [paragrahStyle setAlignment:NSTextAlignmentLeft];
+    
+    
+    attributes = @{ NSParagraphStyleAttributeName  : paragrahStyle,
+                    NSFontAttributeName            : [UIFont systemFontOfSize:17],
+                    NSForegroundColorAttributeName : [UIColor blackColor] };
+    
+    return attributes;
+}
+
+
++ (NSDictionary *)contentsAttribute
 {
     NSDictionary *attributes;
     
@@ -27,7 +45,7 @@ NSString * const HCMessageCellID = @"HCMessageTableViewCell";
     
     attributes = @{ NSParagraphStyleAttributeName  : paragrahStyle,
                     NSFontAttributeName            : [UIFont systemFontOfSize:14],
-                    NSForegroundColorAttributeName : [UIColor blackColor] };
+                    NSForegroundColorAttributeName : [UIColor darkGrayColor] };
     
     return attributes;
 }

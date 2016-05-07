@@ -22,6 +22,7 @@ extern NSString * const HCMessageCellID;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (strong, nonatomic) NSString *messageID;
 
-+ (NSDictionary *)messageLabelAttribute;
++ (NSDictionary *)messageAttribute;
++ (NSDictionary *)contentsAttribute;
 
 @end
