@@ -16,12 +16,19 @@
 
 @interface HCMessageViewController ()
 {
+    // contents manager
     HCContentsInfoManager *_contentsInfoManager;
     
+    // message model
     NSMutableArray *_messages;
+    
+    // cached attributed strings
     NSMutableDictionary *_messageAttrStrings;
     
+    // attributes for message
     NSDictionary *_messageAttributes;
+    
+    // attributes for json contents
     NSDictionary *_contentsAttributes;
 }
 @end
@@ -36,6 +43,16 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [_messages removeAllObjects];
+    [_messageAttrStrings removeAllObjects];
+
+    _messages = nil;
+    _messageAttrStrings  = nil;
+    _contentsInfoManager = nil;
+    _messageAttributes   = nil;
+    _contentsAttributes  = nil;
+    
 }
 
 

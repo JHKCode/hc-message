@@ -35,6 +35,12 @@
 }
 
 
+- (void)dealloc
+{
+    [_linkFetchManager cancelAll];
+}
+
+
 - (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler
 {
     // check handler
