@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void (^HCLinkFetchResultHandler)(NSString *link, NSString *title);
+typedef void (^HCLinkFetchResultHandler)(NSString *link, NSString *title, NSError *error);
 
 
 @interface HCLinkFetchInfo : NSObject
@@ -19,6 +19,7 @@ typedef void (^HCLinkFetchResultHandler)(NSString *link, NSString *title);
 @property (strong, nonatomic) NSURL *URL;
 @property (strong, nonatomic) NSMutableData *data;
 @property (assign, nonatomic) NSStringEncoding encoding;
+@property (strong, nonatomic) NSError *error;
 @property (assign, nonatomic) NSUInteger retryCount;
 @property (assign, nonatomic, getter=isFinished) BOOL finished;
 @property (strong, nonatomic) HCLinkFetchResultHandler completionHandler;

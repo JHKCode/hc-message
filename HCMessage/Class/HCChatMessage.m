@@ -9,6 +9,11 @@
 #import "HCChatMessage.h"
 
 
+NSString * const HCContentInfoKeyMentions  = @"mentions";
+NSString * const HCContentInfoKeyEmoticons = @"emoticons";
+NSString * const HCContentInfoKeyLinks     = @"links";
+
+
 @implementation HCChatMessage
 
 
@@ -38,9 +43,48 @@
     if ( self ) {
         [self setMessageID:[[self class] uniqueMessageID]];
         [self setText:text];
+        [self setParsed:NO];
     }
     
     return self;
+}
+
+
+- (NSString *)JSONContents
+{
+    NSString *JSONString = nil;
+    
+    
+    // collect content infos
+    NSMutableDictionary *contentInfo = [NSMutableDictionary dictionaryWithCapacity:3];
+    
+    if ( [[self mentions] count] > 0 ) {
+        [contentInfo setObject:[self mentions] forKey:HCContentInfoKeyMentions];
+    }
+    
+    if ( [[self emoticons] count] > 0 ) {
+        [contentInfo setObject:[self emoticons] forKey:HCContentInfoKeyEmoticons];
+    }
+    
+    if ( [[self links] count] > 0 ) {
+        [contentInfo setObject:[self links] forKey:HCContentInfoKeyLinks];
+    }
+    
+    
+    // generate json
+    if ( [contentInfo count] > 0 ) {
+        NSError *error = nil;
+        NSData  *JSONData = [NSJSONSerialization dataWithJSONObject:contentInfo
+                                                            options:NSJSONWritingPrettyPrinted
+                                                              error:&error];
+        
+        if ( JSONData ) {
+            JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+        }
+    }
+    
+    
+    return JSONString;
 }
 
 

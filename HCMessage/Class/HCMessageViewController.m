@@ -11,15 +11,18 @@
 #import "HCChatMessage.h"
 #import "HCContentsInfoManager.h"
 
-
-static NSString * const HCContentInfoKeyMentions  = @"mentions";
-static NSString * const HCContentInfoKeyEmoticons = @"emoticons";
-static NSString * const HCContentInfoKeyLinks     = @"links";
+#import "HCMessageTableViewCell.h"
 
 
 @interface HCMessageViewController ()
 {
     HCContentsInfoManager *_contentsInfoManager;
+    
+    NSMutableArray *_messages;
+    NSMutableDictionary *_messageAttrStrings;
+    
+    NSDictionary *_messageAttributes;
+    NSDictionary *_completedMessageAttributes;
 }
 @end
 
@@ -43,8 +46,10 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
     
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
+    [self setupMessages];
     [self setupContentsInfoManager];
     [self setupNotification];
+    [self setupTableView];
 }
 
 
@@ -67,6 +72,15 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
 
 
 #pragma mark - Setup
+
+
+- (void)setupMessages
+{
+    _messages = [[NSMutableArray alloc] init];
+    _messageAttrStrings = [[NSMutableDictionary alloc] init];
+    
+    _messageAttributes = [HCMessageTableViewCell messageLabelAttribute];
+}
 
 
 - (void)setupNotification
@@ -93,6 +107,14 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
 }
 
 
+- (void)setupTableView
+{
+    UINib *msgNib = [UINib nibWithNibName:HCMessageCellID bundle:[NSBundle mainBundle]];
+    
+    [_tableView registerNib:msgNib forCellReuseIdentifier:HCMessageCellID];
+}
+
+
 #pragma mark - UI Action
 
 
@@ -107,34 +129,25 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
     
     HCChatMessage *msg = [[HCChatMessage alloc] initWithText:text];
     
-    [_contentsInfoManager parseMessage:msg completionHandler:^{
-        NSMutableDictionary *contentInfo = [NSMutableDictionary dictionaryWithCapacity:3];
-        
-        if ( [[msg mentions] count] > 0 ) {
-            [contentInfo setObject:[msg mentions] forKey:HCContentInfoKeyMentions];
+    [_messages addObject:msg];
+    
+    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([_messages count] - 1) inSection:0]]
+                      withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    
+    __weak HCMessageViewController *weakSelf = self;
+    
+    [_contentsInfoManager parseMessage:msg completionHandler:^(NSError *error) {
+        if ( weakSelf == nil ) {
+            return;
         }
         
-        if ( [[msg emoticons] count] > 0 ) {
-            [contentInfo setObject:[msg emoticons] forKey:HCContentInfoKeyEmoticons];
-        }
         
-        if ( [[msg links] count] > 0 ) {
-            [contentInfo setObject:[msg links] forKey:HCContentInfoKeyLinks];
-        }
-
-        
-        if ( [contentInfo count] > 0 ) {
-            NSError *error = nil;
-            NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:contentInfo options:NSJSONWritingPrettyPrinted error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [msg setParsed:YES];
             
-            if ( jsonData ) {
-                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                
-                if ( jsonString ) {
-                    NSLog(@"json : %@", jsonString);
-                }
-            }
-        }
+            [weakSelf notifyMessageDidUpdate:msg];
+        });
     }];
     
     
@@ -154,13 +167,55 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [_messages count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    HCMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HCMessageCellID];
+
+    
+    // set max width
+    CGFloat maxWidth = [tableView bounds].size.width - kHCMessageLabelLeftMargin - kHCMessageLabelRightMargin;
+    
+    [[cell messageLabel] setPreferredMaxLayoutWidth:maxWidth];
+    
+    
+    // set text
+    NSAttributedString *attrString = [self attrStringAtIndexPath:indexPath];
+
+    [[cell messageLabel] setAttributedText:attrString];
+    
+    
+    // set background color
+    HCChatMessage *message = [_messages objectAtIndex:[indexPath row]];
+    UIColor       *color   = ( [message parsed] ) ? [UIColor whiteColor] : [UIColor lightGrayColor];
+    
+    [[cell contentView] setBackgroundColor:color];
+    
+    
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSAttributedString *attrString = [self attrStringAtIndexPath:indexPath];
+    
+    
+    // calculate row height
+    CGFloat maxWidth = [tableView bounds].size.width - kHCMessageLabelLeftMargin - kHCMessageLabelRightMargin;
+    
+    CGRect rect = [attrString boundingRectWithSize:CGSizeMake(maxWidth, 10000)
+                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                           context:nil];
+    
+    
+    return ceilf(rect.size.height + kHCMessageLabelTopMargin + kHCMessageLabelBottomMargin);
 }
 
 
@@ -214,6 +269,46 @@ static NSString * const HCContentInfoKeyLinks     = @"links";
                          [[self view] layoutIfNeeded];
                      }
                      completion:nil];
+}
+
+
+#pragma mark - Message
+
+
+- (NSAttributedString *)attrStringAtIndexPath:(NSIndexPath *)indexPath
+{
+    // find or generate attributed string
+    HCChatMessage      *message    = [_messages objectAtIndex:[indexPath row]];
+    NSAttributedString *attrString = [_messageAttrStrings objectForKey:[message messageID]];
+    
+    
+    // check cache
+    if ( [attrString length] == 0 ) {
+        // create attributed string
+        attrString = [[NSAttributedString alloc] initWithString:[message text] attributes:_messageAttributes];
+        
+        // cache attributed string
+        [_messageAttrStrings setObject:attrString forKey:[message messageID]];
+    }
+    
+    
+    return attrString;
+}
+
+
+- (void)notifyMessageDidUpdate:(HCChatMessage *)message
+{
+    NSString *msgID = [message messageID];
+    NSArray  *indexPaths = [_tableView indexPathsForVisibleRows];
+    
+    for ( NSIndexPath *indexPath in indexPaths ) {
+        HCChatMessage *visibleMessage = [_messages objectAtIndex:[indexPath row]];
+        
+        if ( [msgID isEqualToString:[visibleMessage messageID]] ) {
+            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+    }
 }
 
 

@@ -39,7 +39,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
 }
 
 
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler
 {
     // check handler
     if ( handler == nil ) {
@@ -49,7 +49,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
     
     // check text
     if ( [[message text] length] == 0 ) {
-        handler();
+        handler( nil );
         return;
     }
     
@@ -78,7 +78,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
         }
         else {
             if ( handler ) {
-                handler();
+                handler( nil );
             }
         }
     });
@@ -88,7 +88,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
 #pragma mark - Fetch Links
 
 
-- (void)fetchLinks:(NSArray *)links message:(HCChatMessage *)message completionHandler:(void (^)(void))handler
+- (void)fetchLinks:(NSArray *)links message:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler
 {
     NSMutableArray *linkInfos = [NSMutableArray arrayWithCapacity:[links count]];
     
@@ -99,7 +99,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
         
         [linkInfos addObject:linkInfo];
         
-        [_linkFetchManager fetchLink:link completionHandler:^(NSString *link, NSString *title) {
+        [_linkFetchManager fetchLink:link completionHandler:^(NSString *link, NSString *title, NSError *error) {
             linkFetchCount++;
             
             if ( [title length] > 0 ) {
@@ -115,7 +115,7 @@ NSString * const HCContentInfoLinkKeyTitle = @"title";
                 [message setLinks:linkInfos];
                 
                 if ( handler ) {
-                    handler();
+                    handler( nil );
                 }
             }
         }];

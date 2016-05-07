@@ -20,6 +20,8 @@
 		1DA7A1931CD9915200701224 /* HCLinkFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1921CD9915200701224 /* HCLinkFetchManager.m */; };
 		1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */; };
 		1DA7A1A11CDBB5A700701224 /* HCEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1A01CDBB5A700701224 /* HCEmoticon.m */; };
+		1DA7A1A71CDD0A9800701224 /* HCMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA7A1A51CDD0A9800701224 /* HCMessageTableViewCell.m */; };
+		1DA7A1AA1CDD0AC500701224 /* HCMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DA7A1A91CDD0AC500701224 /* HCMessageTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,9 @@
 		1DA7A19D1CD9FCED00701224 /* HCLinkFetchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCLinkFetchInfo.m; path = Class/HCLinkFetchInfo.m; sourceTree = "<group>"; };
 		1DA7A19F1CDBB5A700701224 /* HCEmoticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCEmoticon.h; path = Class/HCEmoticon.h; sourceTree = "<group>"; };
 		1DA7A1A01CDBB5A700701224 /* HCEmoticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCEmoticon.m; path = Class/HCEmoticon.m; sourceTree = "<group>"; };
+		1DA7A1A41CDD0A9800701224 /* HCMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCMessageTableViewCell.h; path = Class/HCMessageTableViewCell.h; sourceTree = "<group>"; };
+		1DA7A1A51CDD0A9800701224 /* HCMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCMessageTableViewCell.m; path = Class/HCMessageTableViewCell.m; sourceTree = "<group>"; };
+		1DA7A1A91CDD0AC500701224 /* HCMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HCMessageTableViewCell.xib; path = Xib/HCMessageTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +108,9 @@
 				1DA7A17F1CD8F2EA00701224 /* Manager */,
 				1DA7A1801CD8F2F100701224 /* Model */,
 				1DA7A1811CD8F2FE00701224 /* Storyboard */,
+				1DA7A1A31CDD0A7500701224 /* View */,
 				1DA7A17E1CD8F2DC00701224 /* ViewController */,
+				1DA7A1A21CDD0A6000701224 /* Xib */,
 				1DA7A1641CD8F22F00701224 /* Assets.xcassets */,
 				1DA7A1691CD8F22F00701224 /* Info.plist */,
 				1DA7A1581CD8F22F00701224 /* Supporting Files */,
@@ -179,6 +186,23 @@
 				1DA7A1661CD8F22F00701224 /* LaunchScreen.storyboard */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		1DA7A1A21CDD0A6000701224 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1A91CDD0AC500701224 /* HCMessageTableViewCell.xib */,
+			);
+			name = Xib;
+			sourceTree = "<group>";
+		};
+		1DA7A1A31CDD0A7500701224 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DA7A1A41CDD0A9800701224 /* HCMessageTableViewCell.h */,
+				1DA7A1A51CDD0A9800701224 /* HCMessageTableViewCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +287,7 @@
 			files = (
 				1DA7A1681CD8F22F00701224 /* LaunchScreen.storyboard in Resources */,
 				1DA7A1651CD8F22F00701224 /* Assets.xcassets in Resources */,
+				1DA7A1AA1CDD0AC500701224 /* HCMessageTableViewCell.xib in Resources */,
 				1DA7A1631CD8F22F00701224 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +310,7 @@
 				1DA7A15A1CD8F22F00701224 /* main.m in Sources */,
 				1DA7A1901CD8F3FA00701224 /* AppDelegate.m in Sources */,
 				1DA7A1871CD8F3D700701224 /* HCContentsInfoManager.m in Sources */,
+				1DA7A1A71CDD0A9800701224 /* HCMessageTableViewCell.m in Sources */,
 				1DA7A18C1CD8F3ED00701224 /* HCMessageViewController.m in Sources */,
 				1DA7A1A11CDBB5A700701224 /* HCEmoticon.m in Sources */,
 				1DA7A19E1CD9FCED00701224 /* HCLinkFetchInfo.m in Sources */,

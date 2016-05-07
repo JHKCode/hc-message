@@ -19,7 +19,7 @@ extern NSString * const HCContentInfoLinkKeyTitle;
 @interface HCContentsInfoManager : NSObject
 
 
-- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(void))handler;
+- (void)parseMessage:(HCChatMessage *)message completionHandler:(void (^)(NSError *))handler;
 
 
 @end

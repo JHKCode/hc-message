@@ -133,7 +133,7 @@ NSString *taskID( NSURLSessionTask *task )
     
     
     if ( [linkInfo completionHandler] ) {
-        [linkInfo completionHandler]([linkInfo link], [linkInfo title]);
+        [linkInfo completionHandler]([linkInfo link], [linkInfo title], [linkInfo error]);
         [linkInfo setCompletionHandler:nil];
     }
     
