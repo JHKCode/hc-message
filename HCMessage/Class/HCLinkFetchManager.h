@@ -16,7 +16,7 @@
 /**
  @method fetchLink:completionHandler:
  
- @abstract Fetch title of links
+ @abstract Fetch title of link
  @param link the link to fetch title
  @param completionHandler the handler is called when fetching title complete
  @discussion Fetched title is cached and there is retry logic when fetching fails.

@@ -354,8 +354,10 @@
     NSString *msgID = [message messageID];
     NSArray  *indexPaths = [_tableView indexPathsForVisibleRows];
     
+    
     // clear cache
     [_messageAttrStrings removeObjectForKey:msgID];
+    
     
     // find & update cell
     for ( NSIndexPath *indexPath in indexPaths ) {

@@ -72,6 +72,7 @@ NSString *taskID( NSURLSessionTask *task )
 
 - (void)dealloc
 {
+    [self cancelAll];
 }
 
 
@@ -92,6 +93,7 @@ NSString *taskID( NSURLSessionTask *task )
     }
     
     
+    // starting fetch or queueing is operated in operation queue for thread safety.
     [_operationQueue addOperationWithBlock:^{
         // check cache
         NSString *title = [_titles objectForKey:link];
@@ -238,7 +240,7 @@ NSString *taskID( NSURLSessionTask *task )
         [self findTitleInHTML:HTMLString linkInfo:linkInfo];
         
         
-        // perform completion
+        // perform completion if title is found or title doesn't exist.
         if ( [linkInfo isFinished] ) {
             [self finishTask:task];
             [self fetchNext];
@@ -280,6 +282,15 @@ didReceiveResponse:(NSURLResponse *)response
 #pragma mark - Finding Title
 
 
+/**
+ @method findTitleInHTML:linkInfo:
+ 
+ @abstract find title in HTMLString and store the title in linkInfo
+ @param HTMLString the html string from the link
+ @param linkInfo the fetching link information
+ @discussion If <title> tag doesn't exist in <head>, mark linkInfo finished 
+  since url session doesn't need to download html any more.
+ */
 - (void)findTitleInHTML:(NSString *)HTMLString linkInfo:(HCLinkFetchInfo *)linkInfo
 {
     // create regular expression

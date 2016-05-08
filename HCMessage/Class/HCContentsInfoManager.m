@@ -55,6 +55,8 @@
         return;
     }
     
+    
+    // parse message in background thread
     __weak HCContentsInfoManager *weakSelf = self;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -63,25 +65,36 @@
         }
         
         
-        NSArray *mentions  = [weakSelf findMentions:[message text]];
-        NSArray *emoticons = [weakSelf findEmoticons:[message text]];
-        NSArray *links     = [weakSelf findLinks:[message text]];
+        // find mentions
+        NSArray *mentions = [weakSelf findMentions:[message text]];
         
         if ( [mentions count] > 0 ) {
             [message setMentions:mentions];
         }
+
         
+        // find emoticons
+        NSArray *emoticons = [weakSelf findEmoticons:[message text]];
+
         if ( [emoticons count] > 0 ) {
             [message setEmoticons:emoticons];
         }
         
+        
+        // find links
+        NSArray *links = [weakSelf findLinks:[message text]];
+        
+        // fetch link title
         if ( [links count] > 0 ) {
             [weakSelf fetchLinks:links message:message completionHandler:handler];
+            
+            return;
         }
-        else {
-            if ( handler ) {
-                handler();
-            }
+
+        
+        // call handler if there is no links
+        if ( handler ) {
+            handler();
         }
     });
 }
@@ -101,6 +114,7 @@
         
         [linkInfos addObject:linkInfo];
         
+        // fetch a title of one link
         [_linkFetchManager fetchLink:link completionHandler:^(NSString *link, NSString *title, NSError *error) {
             linkFetchCount++;
             
@@ -122,6 +136,7 @@
             }
 
             
+            // check if all links were fetched.
             if ( linkFetchCount == [links count] ) {
                 [message setLinks:linkInfos];
                 
@@ -140,12 +155,14 @@
 
 #pragma mark - Find Mentions & Emoticons
 
-/*
+
+/**
+ @method findMentionsAndEmoticons:
  
- You can use this method if you concern about performance since it walks through text only once.
+ @param text
+ @result array of mentions and emoticons (@["@hello", "(emoticon1)", "(emoticon2)", "@world", ...])
+ @discussion You can use this method if you concern about performance since it walks through text only once.
  However, some post processing needs to remove '@' or parenthesis.
- output : @["@hello", "(emoticon1)", "(emoticon2)", "@world", ...]
- 
  */
 - (NSArray *)findMentionsAndEmoticons:(NSString *)text
 {
@@ -199,6 +216,12 @@
 }
 
 
+/**
+ @method findMentions:
+ 
+ @param text
+ @result array of mentions without '@' (@["John", "Bob", "Foo", "Bar", ...])
+ */
 - (NSArray *)findMentions:(NSString *)text
 {
     // check text
@@ -265,6 +288,12 @@
 }
 
 
+/**
+ @method findEmoticons:
+ 
+ @param text
+ @result array of emoticons without parenthesis (@["heart", "sydney", "success", ...])
+ */
 - (NSArray *)findEmoticons:(NSString *)text
 {
     // check text
@@ -331,6 +360,13 @@
 }
 
 
+/**
+ @method findLinks:
+ 
+ @param text
+ @result array of link (@["www.google.com", "www.apple.com", ...])
+ @discussion email address is not considered as link.
+ */
 - (NSArray *)findLinks:(NSString *)text
 {
     // check text
