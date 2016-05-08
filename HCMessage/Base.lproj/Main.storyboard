@@ -34,20 +34,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5f-Og-USE">
-                                <rect key="frame" x="253" y="285" width="95" height="30"/>
-                                <state key="normal" title="Message Test"/>
+                                <rect key="frame" x="241" y="540" width="119" height="30"/>
+                                <state key="normal" title="Go Message Test"/>
                                 <connections>
                                     <segue destination="kan-Ei-1ta" kind="show" id="8Vx-UA-4Nc"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f67-l2-IuF" userLabel="App Description View">
+                                <rect key="frame" x="10" y="74" width="580" height="436"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="f67-l2-IuF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="6wr-3a-zO4"/>
                             <constraint firstItem="u5f-Og-USE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7sq-LR-nxl"/>
-                            <constraint firstItem="u5f-Og-USE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yXk-v9-wAt"/>
+                            <constraint firstItem="f67-l2-IuF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="H4L-wx-w2M"/>
+                            <constraint firstItem="u5f-Og-USE" firstAttribute="top" secondItem="f67-l2-IuF" secondAttribute="bottom" constant="30" id="YaW-kZ-jja"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="u5f-Og-USE" secondAttribute="bottom" constant="30" id="kuV-OG-KfG"/>
+                            <constraint firstAttribute="trailing" secondItem="f67-l2-IuF" secondAttribute="trailing" constant="10" id="pTa-ii-lh0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="hyc-Ci-ssH"/>
+                    <connections>
+                        <outlet property="appDescTextView" destination="f67-l2-IuF" id="Uxk-Dg-yim"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
